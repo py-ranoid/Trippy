@@ -1,6 +1,8 @@
 import json
 import requests
+import pandas as pd
 from pprint import pprint
+
 Key1 = "82ff9ab8a7614161b2bba97dfbbce3f5"
 Key2 = "f94ad171570449278a28c720c9c76235"
 
@@ -24,3 +26,16 @@ def BingWebSearch(search, lim=5):
 
 # Testing
 #print BingWebSearch("City Palace of Palace")
+
+# Main function. For the attractions and sub-attractions:
+
+# Attractions:
+att = list()
+df = pd.read_excel("basicdescs.xlsx")
+for i in df['Name']:
+    att.append(BingWebSearch(i))
+
+df["imgurls"] = att
+df.to_excel("basicdescs.xlsx")
+
+#bit.ly/rgh3/slack
