@@ -37,7 +37,6 @@ def generate_place_details():
 
 generate_place_details()
 
-
 def open_or_not(place):
     query_url = url % '%20'.join(place.split(' '))
     r = requests.get(query_url)
