@@ -17,16 +17,22 @@ def forCity(request):
     lat = body.get('lat', None)
     lng = body.get('lng', None)
     lang = body.get('lang', None)
+    print lat, lng, lang
 
     #logic to determine the city belongs here.
     CITY = "udaipur"
     uri1=BASE + "/data/final_" + CITY + ".pkl"
     uri2=BASE + "/data/" + CITY + "_eng.json"
 
-    if lang.lower == 'spanish':
+    print str(lang.lower()).strip(), 'spanish'
+    print str(lang.lower()).strip(), 'hindi'
+
+    if str(lang.lower()).strip() == 'spanish':
+        print 'here1'
         uri1=BASE + "/data/spafinal_" + CITY + ".pkl"
         uri2=BASE + "/data/" + CITY + "_spa.json"
-    elif lang.lower == 'hindi':
+    elif str(lang.lower()).strip() == 'hindi':
+        print 'here2'
         uri1=BASE + "/data/hinfinal_" + CITY + ".pkl"
         uri2=BASE + "/data/" + CITY + "_hin.json"
 
