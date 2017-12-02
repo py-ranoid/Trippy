@@ -16,8 +16,8 @@ BASE = os.path.dirname(os.path.abspath(__file__))
 def forCity(request):
     body = json.loads(request.body)
     print body
-    lat = body.get('lat', None)
-    lng = body.get('lng', None)
+    lat = float(body.get('lat', None))
+    lng = float(body.get('lng', None))
     lang = body.get('lang', None)
     recommend = body.get('flag', None)
     print lat, lng, lang, recommend
