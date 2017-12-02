@@ -18,5 +18,6 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^fetchAttractions/', include('CityAttAPI.urls'))
+    url(r'^fetchAttractions/', include('CityAttAPI.urls')),
+    url(r'^fetchSubAttractions/', include('AttSubAttAPI.urls')),
 ]
