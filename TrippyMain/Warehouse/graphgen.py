@@ -14,7 +14,7 @@ for i in places_list:
     for j in places_list:
         num = len(set(df_all[df_all['Venue_title'] == i]['User_name']).intersection(
             set(df_all[df_all['Venue_title'] == j]['User_name'])))
-    graph[i][j] = num
+        graph[i][j] = num
 
 df = pd.DataFrame()
 df = df.from_dict(graph)
