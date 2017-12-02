@@ -13,13 +13,13 @@ import os
 BASE = os.path.dirname(os.path.abspath(__file__))
 
 
-def forCity(request)
+def forCity(request):
     body = json.loads(request.body)
     print body
     lat = body.get('lat', None)
     lng = body.get('lng', None)
     lang = body.get('lang', None)
-    recommend = bodyl.get('flag', None)
+    recommend = body.get('flag', None)
     print lat, lng, lang
 
     # logic to determine the city belongs here.
@@ -50,7 +50,9 @@ def forCity(request)
     ddf2 = {}
     ddf2['resp'] = []
 
-    if recommend == 1:
+    print rec
+
+    if recommend == "0":
         for i in ddf.keys():
             ddf[i]['aid'] = i
             ddf2['resp'].append(ddf[i])
