@@ -38,7 +38,7 @@ def withText(text, name):
     spatext = transWrapper(text, 'es')
     try:
         response1 = polly.synthesize_speech(Text = engtext, OutputFormat="mp3", VoiceId="Aditi")
-        response2 = polly.synthesize_speech(Text = spatext, OutputFormat="mp3", VoiceId=u'Penélope')
+        response2 = polly.synthesize_speech(Text = spatext, OutputFormat="mp3", VoiceId=u'Penelope')
         print response1
         print response2
     except (BotoCoreError, ClientError) as error:

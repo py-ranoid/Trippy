@@ -30,12 +30,12 @@ def BingWebSearch(search, lim=5):
 # Main function. For the attractions and sub-attractions:
 
 # Attractions:
-att = list()
-df = pd.read_excel("basicdescs.xlsx")
-for i in df['Name']:
-    att.append(BingWebSearch(i))
-
-df["imgurls"] = att
-df.to_excel("basicdescs.xlsx")
+# att = list()
+# df = pd.read_excel("basicdescs.xlsx")
+# for i in df['Name']:
+#     att.append(BingWebSearch(i))
+#
+# df["imgurls"] = att
+# df.to_excel("basicdescs.xlsx")
 
 #bit.ly/rgh3/slack
