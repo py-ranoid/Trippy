@@ -54,7 +54,7 @@ def withText(text, name):
                     file.write(stream.read())
                     file.close()
                     print s3.meta.client.upload_file(Filename= "Audio/" + str(name) + ".mp3", Bucket='trippystatic', Key= str(name) +"eng.mp3", ExtraArgs={"ACL":'public-read'})
-                    os.remove("Audio/" + str(name) + ".mp3")
+                    #os.remove("Audio/" + str(name) + ".mp3")
             except IOError as error:
                 print(error)
                 sys.exit(-1)
@@ -69,10 +69,12 @@ def withText(text, name):
                     file.write(stream.read())
                     file.close()
                     print s3.meta.client.upload_file(Filename= "SpaAudio/" + str(name) + ".mp3", Bucket='trippystatic', Key= str(name) +"spa.mp3", ExtraArgs={"ACL":'public-read'})
-                    os.remove("SpaAudio/" + str(name) + ".mp3")
+                    #os.remove("SpaAudio/" + str(name) + ".mp3")
             except IOError as error:
                 print(error)
                 sys.exit(-1)
+
+    return(engtext, hintext, spatext)
 
 
 def withPickle(infopkl):
@@ -122,7 +124,7 @@ def withPickle(infopkl):
                         file.write(stream.read())
                         file.close()
                         print s3.meta.client.upload_file(Filename= "Audio/" + str(df.index[i]) + ".mp3", Bucket='trippystatic', Key= str(df.index[i]) +"eng.mp3", ExtraArgs={"ACL":'public-read'})
-                        os.remove("Audio/" + str(df.index[i]) + ".mp3")
+                        #os.remove("Audio/" + str(df.index[i]) + ".mp3")
                 except IOError as error:
                     print(error)
                     sys.exit(-1)
@@ -137,7 +139,7 @@ def withPickle(infopkl):
                         file.write(stream.read())
                         file.close()
                         print s3.meta.client.upload_file(Filename= "SpaAudio/" + str(df.index[i]) + ".mp3", Bucket='trippystatic', Key= str(df.index[i]) +"spa.mp3", ExtraArgs={"ACL":'public-read'})
-                        os.remove("SpaAudio/" + str(df.index[i]) + ".mp3")
+                        #os.remove("SpaAudio/" + str(df.index[i]) + ".mp3")
                 except IOError as error:
                     print(error)
                     sys.exit(-1)
@@ -152,4 +154,4 @@ def withPickle(infopkl):
     df['audiourls'] = audiourlsspa
     df.to_pickle('spa' + infopkl)
 
-withPickle("final_udaipur.pkl")
+#withPickle("final_udaipur.pkl")
