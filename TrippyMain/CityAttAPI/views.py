@@ -20,7 +20,7 @@ def forCity(request):
     lng = body.get('lng', None)
     lang = body.get('lang', None)
     recommend = body.get('flag', None)
-    print lat, lng, lang
+    print lat, lng, lang, recommend
 
     # logic to determine the city belongs here.
     CITY = "udaipur"
