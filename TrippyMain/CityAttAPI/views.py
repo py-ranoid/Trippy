@@ -12,15 +12,14 @@ import os
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 
-print get_recommendations()
 
-
-def forCity(request):
+def forCity(request)
     body = json.loads(request.body)
     print body
     lat = body.get('lat', None)
     lng = body.get('lng', None)
     lang = body.get('lang', None)
+    recommend = bodyl.get('flag', None)
     print lat, lng, lang
 
     # logic to determine the city belongs here.
@@ -46,13 +45,20 @@ def forCity(request):
     about = json.loads(open(uri2, 'r').read())
 
     # Generating JSON data.
+    rec = get_recommendations(lat=lat, lng=lng)
     ddf = df.to_dict()
     ddf2 = {}
     ddf2['resp'] = []
 
-    for i in ddf.keys():
-        ddf[i]['aid'] = i
-        ddf2['resp'].append(ddf[i])
+    if recommend == 1:
+        for i in ddf.keys():
+            ddf[i]['aid'] = i
+            ddf2['resp'].append(ddf[i])
+    else:
+        for i in rec:
+            for j in ddf.values():
+                if j['name'] == i:
+                    ddf2['resp'].append(j)
 
     ddf2['success'] = True
     ddf2['about'] = about
