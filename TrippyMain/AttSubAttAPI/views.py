@@ -11,7 +11,7 @@ import os
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 
-def forCity(request):
+def forAttraction(request):
     body = json.loads(request.body)
     print body
     lat = body.get('lat', None)
