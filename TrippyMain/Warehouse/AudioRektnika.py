@@ -11,6 +11,8 @@ import os
 import pandas as pd
 import sys
 
+print "--UPDATED--"
+
 s3 = boto3.resource('s3')
 
 engtext = u''
@@ -77,7 +79,8 @@ def withText(text, name):
     return(engtext, hintext, spatext)
 
 
-def withPickle(infopkl):
+def withPickle(infopkl, title):
+    print "--UPDATED--"
     df = pd.read_pickle(infopkl)
 
     hindescs = list()
@@ -99,9 +102,9 @@ def withPickle(infopkl):
         hindescs.append(hintext)
         spadescs.append(spatext)
 
-        audiourlseng.append(STR + str(df.index[i]) + "eng.mp3")
-        audiourlsspa.append(STR + str(df.index[i]) + "spa.mp3")
-        audiourlshin.append(STR + str(df.index[i]) + "eng.mp3")
+        audiourlseng.append(STR + title + str(df.index[i]) + "eng.mp3")
+        audiourlsspa.append(STR + title + str(df.index[i]) + "spa.mp3")
+        audiourlshin.append(STR + title + str(df.index[i]) + "eng.mp3")
 
         try:
             # Request speech synthesis
@@ -124,7 +127,7 @@ def withPickle(infopkl):
                         file.write(stream.read())
                         file.close()
                         print s3.meta.client.upload_file(Filename= "Audio/" + str(df.index[i]) + ".mp3", Bucket='trippystatic', Key= str(df.index[i]) +"eng.mp3", ExtraArgs={"ACL":'public-read'})
-                        #os.remove("Audio/" + str(df.index[i]) + ".mp3")
+                        os.remove("Audio/" + str(df.index[i]) + ".mp3")
                 except IOError as error:
                     print(error)
                     sys.exit(-1)
@@ -139,7 +142,7 @@ def withPickle(infopkl):
                         file.write(stream.read())
                         file.close()
                         print s3.meta.client.upload_file(Filename= "SpaAudio/" + str(df.index[i]) + ".mp3", Bucket='trippystatic', Key= str(df.index[i]) +"spa.mp3", ExtraArgs={"ACL":'public-read'})
-                        #os.remove("SpaAudio/" + str(df.index[i]) + ".mp3")
+                        os.remove("SpaAudio/" + str(df.index[i]) + ".mp3")
                 except IOError as error:
                     print(error)
                     sys.exit(-1)
