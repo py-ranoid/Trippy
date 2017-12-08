@@ -1,0 +1,9 @@
+{
+        "places": {
+                "Kolkata": ["https://www.tripadvisor.in/Attractions-g304558-Activities-Kolkata_Calcutta_Kolkata_District_West_Bengal.html", "https://www.tripadvisor.in/Attractions-g304558-Activities-oa30-Kolkata_Calcutta_Kolkata_District_West_Bengal.html", "https://www.tripadvisor.in/Attractions-g304558-Activities-oa60-Kolkata_Calcutta_Kolkata_District_West_Bengal.html"],
+                "Delhi": ["https://www.tripadvisor.in/Attractions-g304551-Activities-New_Delhi_National_Capital_Territory_of_Delhi.html", "https://www.tripadvisor.in/Attractions-g304551-Activities-oa30-New_Delhi_National_Capital_Territory_of_Delhi.html", "https://www.tripadvisor.in/Attractions-g304551-Activities-oa60-New_Delhi_National_Capital_Territory_of_Delhi.html"],
+                "Chennai": ["https://www.tripadvisor.in/Attractions-g304556-Activities-Chennai_Madras_Chennai_District_Tamil_Nadu.html", "https://www.tripadvisor.in/Attractions-g304556-Activities-oa30-Chennai_Madras_Chennai_District_Tamil_Nadu.html", "https://www.tripadvisor.in/Attractions-g304556-Activities-oa60-Chennai_Madras_Chennai_District_Tamil_Nadu.html"],
+                "Agra": ["https://www.tripadvisor.in/Attractions-g297683-Activities-Agra_Agra_District_Uttar_Pradesh.html", "https://www.tripadvisor.in/Attractions-g297683-Activities-oa30-Agra_Agra_District_Uttar_Pradesh.html", "https://www.tripadvisor.in/Attractions-g297683-Activities-oa60-Agra_Agra_District_Uttar_Pradesh.html"],
+                "Mumbai": ["https://www.tripadvisor.in/Attractions-g304554-Activities-Mumbai_Maharashtra.html", "https://www.tripadvisor.in/Attractions-g304554-Activities-oa30-Mumbai_Maharashtra.html", "https://www.tripadvisor.in/Attractions-g304554-Activities-oa60-Mumbai_Maharashtra.html"]
+        }
+}

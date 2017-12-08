@@ -1,23 +1,39 @@
 from RevScraper import primary_crawler, save_reviews
+from RevSearch import getTAurl
 import pandas as pd
+import json
 
-udp_placelist_1 = 'https://www.tripadvisor.in/Attractions-g297672-Activities-Udaipur_Udaipur_District_Rajasthan.html'
-udp_placelist_2 = 'https://www.tripadvisor.in/Attractions-g297672-Activities-oa30-Udaipur_Udaipur_District_Rajasthan.html'
-udp_placelist_3 = 'https://www.tripadvisor.in/Attractions-g297672-Activities-oa60-Udaipur_Udaipur_District_Rajasthan.html'
+with open('RevPlacesList.json', 'r') as placesfile:
+    content = placesfile.read()
+    plist = json.loads(content)
 
-primary_crawler(udp_placelist_1)
-save_reviews('Udaipur_reviews1.pkl')
 
-primary_crawler(udp_placelist_2)
-save_reviews('Udaipur_reviews2.pkl')
+def save_links(plist):
+    place_links = {}
+    for city in plist['places']:
+        link = getTAurl(city)
+        links = [link,
+                 link.replace('-Activities-', '-Activities-oa30-'),
+                 link.replace('-Activities-', '-Activities-oa60-'), ]
+        place_links[city] = links
 
-primary_crawler(udp_placelist_3)
-save_reviews('Udaipur_reviews3.pkl')
+    with open('RevPlacesList.json', 'w') as placesfile:
+        content = {'places': place_links}
+        json.dump(content, placesfile)
 
-df1 = pd.read_pickle('Udaipur_reviews1.pkl')
-df2 = pd.read_pickle('Udaipur_reviews2.pkl')
-df3 = pd.read_pickle('Udaipur_reviews3.pkl')
 
-df_all = [df1, df2, df3]
-df_all = pd.concat(df_all)
-df_all.to_pickle('UdpRevFin.pkl')
+for city in plist['places']:
+    print '========================\n' + city.upper()
+    links = plist['places'][city]
+    for i in range(3):
+        primary_crawler(links[i])
+        pickle_path = '../Reviews/' + city + '_reviews_' + str(i) + '.pkl'
+        save_reviews(pickle_path)
+
+    df = []
+    for i in range(3):
+        pickle_path = '../Reviews/' + city + '_reviews_' + str(i) + '.pkl'
+        df[i] = pd.read_pickle(pickle_path)
+
+    df_all = pd.concat(df)
+    df_all.to_pickle('../Reviews/' + city + 'RevFin.pkl')
