@@ -23,6 +23,7 @@ def save_links(plist):
 
 
 for city in plist['places']:
+    if city == 'Kolkata':continue
     print '========================\n' + city.upper()
     links = plist['places'][city]
     for i in range(3):
@@ -33,7 +34,7 @@ for city in plist['places']:
     df = []
     for i in range(3):
         pickle_path = '../Reviews/' + city + '_reviews_' + str(i) + '.pkl'
-        df[i] = pd.read_pickle(pickle_path)
+        df.append(pd.read_pickle(pickle_path))
 
     df_all = pd.concat(df)
     df_all.to_pickle('../Reviews/' + city + 'RevFin.pkl')
