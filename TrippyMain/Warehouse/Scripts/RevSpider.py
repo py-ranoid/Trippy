@@ -1,5 +1,4 @@
 from RevScraper import primary_crawler, save_reviews
-from RevSearch import getTAurl
 import pandas as pd
 import json
 
@@ -9,6 +8,7 @@ with open('RevPlacesList.json', 'r') as placesfile:
 
 
 def save_links(plist):
+    from RevSearch import getTAurl
     place_links = {}
     for city in plist['places']:
         link = getTAurl(city)
