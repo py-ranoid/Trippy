@@ -7,11 +7,14 @@ import boto3
 from botocore.exceptions import BotoCoreError, ClientError
 from contextlib import closing
 from transer import GoogleTranslator
+from prime import text2speech
 import os
 import pandas as pd
 import sys
 
 print "--UPDATED--"
+
+apiKey = "55972b0f3abe41928703b8e095e1f1c5" # This key is for Bing T2S
 
 s3 = boto3.resource('s3')
 
@@ -50,7 +53,7 @@ def withText(text, name):
         with closing(response1["AudioStream"]) as stream:
             try:
                 # Open a file for writing the output as a binary stream
-                filename = "Audio/" + str(name) + ".mp3"
+                filename = "../Audio/" + str(name) + ".mp3"
                 print filename
                 with open(filename, "wb") as file:
                     file.write(stream.read())
@@ -65,7 +68,7 @@ def withText(text, name):
         with closing(response2["AudioStream"]) as stream:
             try:
                 # Open a file for writing the output as a binary stream
-                filename = "SpaAudio/" + str(name) + ".mp3"
+                filename = "../SpaAudio/" + str(name) + ".mp3"
                 print filename
                 with open(filename, "wb") as file:
                     file.write(stream.read())
@@ -78,8 +81,12 @@ def withText(text, name):
 
     return(engtext, hintext, spatext)
 
-
 def withPickle(infopkl, title):
+    # This function will work with the pickles of different cities and auto generate content and audio files.
+    # REQUIRED: The pickle file must have a column called 'desc' which has the content to universalize.
+    # PARAMS:
+    #   infopkl:    Denotes the name of the pickle file to autogenerate for.
+    #   title:      The general title of the audio files that are generated. Ex: "udaipur1"
     print "--UPDATED--"
     df = pd.read_pickle(infopkl)
 
@@ -104,14 +111,16 @@ def withPickle(infopkl, title):
 
         audiourlseng.append(STR + title + str(df.index[i]) + "eng.mp3")
         audiourlsspa.append(STR + title + str(df.index[i]) + "spa.mp3")
-        audiourlshin.append(STR + title + str(df.index[i]) + "eng.mp3")
+        audiourlshin.append(STR + title + str(df.index[i]) + "hin.mp3")
 
         try:
             # Request speech synthesis
             response1 = polly.synthesize_speech(Text = engtext, OutputFormat="mp3", VoiceId="Aditi")
             response2 = polly.synthesize_speech(Text = spatext, OutputFormat="mp3", VoiceId=u'Penelope')
+            response3 = text2speech(text = hintext, gender = 'Female', body_lang='hi-IN', voice_lang='hi-IN', destination="")
             print response1
             print response2
+            print response3
         except (BotoCoreError, ClientError) as error:
             # The service returned an error, exit gracefully
             print error
@@ -121,13 +130,13 @@ def withPickle(infopkl, title):
             with closing(response1["AudioStream"]) as stream:
                 try:
                     # Open a file for writing the output as a binary stream
-                    filename = "Audio/" + str(df.index[i]) + ".mp3"
+                    filename = "../Audio/" + str(df.index[i]) + ".mp3"
                     print filename
                     with open(filename, "wb") as file:
                         file.write(stream.read())
                         file.close()
-                        print s3.meta.client.upload_file(Filename= "Audio/" + str(df.index[i]) + ".mp3", Bucket='trippystatic', Key= str(df.index[i]) +"eng.mp3", ExtraArgs={"ACL":'public-read'})
-                        os.remove("Audio/" + str(df.index[i]) + ".mp3")
+                        print s3.meta.client.upload_file(Filename= "../Audio/" + str(df.index[i]) + ".mp3", Bucket='trippystatic', Key= str(df.index[i]) +"eng.mp3", ExtraArgs={"ACL":'public-read'})
+                        os.remove("../Audio/" + str(df.index[i]) + ".mp3")
                 except IOError as error:
                     print(error)
                     sys.exit(-1)
@@ -136,16 +145,24 @@ def withPickle(infopkl, title):
             with closing(response2["AudioStream"]) as stream:
                 try:
                     # Open a file for writing the output as a binary stream
-                    filename = "SpaAudio/" + str(df.index[i]) + ".mp3"
+                    filename = "../SpaAudio/" + str(df.index[i]) + ".mp3"
                     print filename
                     with open(filename, "wb") as file:
                         file.write(stream.read())
                         file.close()
-                        print s3.meta.client.upload_file(Filename= "SpaAudio/" + str(df.index[i]) + ".mp3", Bucket='trippystatic', Key= str(df.index[i]) +"spa.mp3", ExtraArgs={"ACL":'public-read'})
-                        os.remove("SpaAudio/" + str(df.index[i]) + ".mp3")
+                        print s3.meta.client.upload_file(Filename= "../SpaAudio/" + str(df.index[i]) + ".mp3", Bucket='trippystatic', Key= str(df.index[i]) +"spa.mp3", ExtraArgs={"ACL":'public-read'})
+                        os.remove("../SpaAudio/" + str(df.index[i]) + ".mp3")
                 except IOError as error:
                     print(error)
                     sys.exit(-1)
+
+        hcontent = response3.content
+        with open("../HinAudio/" + str(df.index[i]) + ".mp3", "wb") as f:
+            f.write(hcontent)
+            f.close()
+            print s3.meta.client.upload_file(Filename= "../HinAudio/" + str(df.index[i]) + ".mp3", Bucket='trippystatic', Key= str(df.index[i]) +"hin.mp3", ExtraArgs={"ACL":'public-read'})
+            #os.remove("../HinAudio/" + str(df.index[i]) + ".mp3")
+
 
     df['audiourls'] = audiourlseng
     df.to_pickle(infopkl)

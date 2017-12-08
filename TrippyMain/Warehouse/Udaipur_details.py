@@ -4,10 +4,9 @@ import pandas as pd
 YOUR_API_KEY = 'AIzaSyBebwYnPp4vPegob7TckO9oEZ8rP0j6W6k'
 url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=24.5709329,73.6762453&radius=7000&keyword=%s&key=' + YOUR_API_KEY
 
-df = pd.read_pickle('mutual_visits.pkl')
-place_list = list(df.index)
-
-def generate_place_details():
+def generate_place_details(place = "Udaipur"):
+    df = pd.read_pickle('../BasicCityData/' + place + '/mutual_visits.pkl')
+    place_list = list(df.index)
     details = {}
     for place in place_list:
         details[place] = []
