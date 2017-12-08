@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import requests
 from xml.etree import ElementTree
 # cd gitpository/TrippyRepo
@@ -47,11 +48,17 @@ def text2speech(text='This is a demo to call microsoft text to speech service in
                "User-Agent": "TTSForPython"}
     s2 = requests.post("https://" + 'speech.platform.bing.com' +
                        "/synthesize", data=ElementTree.tostring(body), headers=headers)
-    print s2
-    print s2.reason
-    print len(s2.content)
-    with open(destination, 'w') as outfile:
-        outfile.write(s2.content)
+
+    return s2
+    # print s2
+    # print s2.reason
+    #
+    # cont = s2.content
+    #
+    # print len(cont)
+    # return cont
+    # with open(destination, 'w') as outfile:
+    #     outfile.write(s2.content)
 
 
 def trans_and_store(text, langs=['en-IN', 'hi-IN', 'ca-ES'], gender='Female', file_title='test'):
@@ -66,7 +73,7 @@ def trans_and_store(text, langs=['en-IN', 'hi-IN', 'ca-ES'], gender='Female', fi
     return fin_dict
 
 
-trans_and_store('With the Bing text to speech API, your application can send HTTP requests to a cloud server, where text is instantly synthesized into human-sounding speech.')
+# trans_and_store('With the Bing text to speech API, your application can send HTTP requests to a cloud server, where text is instantly synthesized into human-sounding speech.')
 
 
 """
