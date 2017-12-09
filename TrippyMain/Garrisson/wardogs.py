@@ -1,7 +1,6 @@
 from google.cloud.firestore_v1beta1 import GeoPoint
 import firebasic
 
-
 class City(object):
     def __init__(self, name, lat, lng, images, helplines=None, desciption_mp3=None, desc=None):
         """

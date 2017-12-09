@@ -30,6 +30,8 @@ def text2speech(text='This is a demo to call microsoft text to speech service in
     voice.set('{http://www.w3.org/XML/1998/namespace}gender', gender)
     voice.set('name', Trans_Names[voice_lang][gender])
     voice.text = text
+    print type(voice.text)
+    print voice.text
 
     headers = {"Ocp-Apim-Subscription-Key": apiKey}
     AccessTokenHost = "api.cognitive.microsoft.com"
