@@ -5,7 +5,6 @@ import pandas as pd
 finlist = None
 num = 0
 
-
 def get_place_details(primeurl):
     global finlist, num
     s = soup(urlopen(primeurl).read(), "lxml")

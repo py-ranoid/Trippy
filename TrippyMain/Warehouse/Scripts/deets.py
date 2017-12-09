@@ -2,9 +2,11 @@ import requests
 import pandas as pd
 
 YOUR_API_KEY = 'AIzaSyBebwYnPp4vPegob7TckO9oEZ8rP0j6W6k'
+
+# This URL represents a nearby search that distinguishes specific places by name such that they're close to the given coordinates.
 url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=24.5709329,73.6762453&radius=7000&keyword=%s&key=' + YOUR_API_KEY
 
-def generate_place_details(place = "Udaipur"):
+def generate_place_details(place = "Udaipur", default_descs = True):
     df = pd.read_pickle('../BasicCityData/' + place + '/mutual_visits.pkl')
     place_list = list(df.index)
     details = {}
@@ -31,10 +33,7 @@ def generate_place_details(place = "Udaipur"):
         }
     df = pd.DataFrame()
     df = df.from_dict(details)
-    df.to_pickle('place_details.pkl')
-
-
-generate_place_details()
+    df.to_pickle('../BasicCityData/' + place + '/place_details.pkl')
 
 def open_or_not(place):
     query_url = url % '%20'.join(place.split(' '))
