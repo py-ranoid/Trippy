@@ -21,23 +21,32 @@ def get_docs_in_col(col):
 
 
 def get_doc(name):
-    return cli.collection(name)
+    return cli.document(name)
 
 # d = list(col.get())[0]
 # d.to_dict()
 
 
-def add_record(col, id, rec):
-    print rec
-    # col.document(id).set(rec)       ----- This will override existing document if id exists
-    try:
-        col.add(document_data=rec, document_id=id)
-    except Conflict as f:
-        if f.code == 409:
-            raise Exception("Key '" + id + "'already exists\n===============")
+def add_collection(path='Cities/sample/Attractions'):
+    new_col = cli.collection(path)
+    new_col.add(document_data={u"hello": u"world"}, document_id='000')
+
+
+def add_record(col, id, rec, ovr):
+    if ovr:
+        col.document(id).set(rec)
+    else:
+        try:
+            col.add(document_data=rec, document_id=id)
+        except Conflict as f:
+            if f.code == 409:
+                raise Exception(
+                    "Key '" + id + "'already exists\n===============")
 
 
 CITY_COLLECTION = 'Cities'
+ATTR_COLLECTION = 'Attractions'
+SUBA_COLLECTION = 'SubAttractions'
 try:
     cli = client()
 except:
