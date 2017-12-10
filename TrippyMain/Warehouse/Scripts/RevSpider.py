@@ -22,19 +22,21 @@ def save_links(plist):
         json.dump(content, placesfile)
 
 
-for city in plist['places']:
-    if city == 'Kolkata':continue
-    print '========================\n' + city.upper()
-    links = plist['places'][city]
-    for i in range(3):
-        primary_crawler(links[i])
-        pickle_path = '../Reviews/' + city + '_reviews_' + str(i) + '.pkl'
-        save_reviews(pickle_path)
-
-    df = []
-    for i in range(3):
-        pickle_path = '../Reviews/' + city + '_reviews_' + str(i) + '.pkl'
-        df.append(pd.read_pickle(pickle_path))
-
-    df_all = pd.concat(df)
-    df_all.to_pickle('../Reviews/' + city + 'RevFin.pkl')
+save_links(plist)
+# for city in plist['places']:
+#     if city == 'Kolkata':
+#         continue
+#     print '========================\n' + city.upper()
+#     links = plist['places'][city]
+#     for i in range(3):
+#         primary_crawler(links[i])
+#         pickle_path = '../Reviews/' + city + '_reviews_' + str(i) + '.pkl'
+#         save_reviews(pickle_path)
+#
+#     df = []
+#     for i in range(3):
+#         pickle_path = '../Reviews/' + city + '_reviews_' + str(i) + '.pkl'
+#         df.append(pd.read_pickle(pickle_path))
+#
+#     df_all = pd.concat(df)
+#     df_all.to_pickle('../Reviews/' + city + 'RevFin.pkl')
