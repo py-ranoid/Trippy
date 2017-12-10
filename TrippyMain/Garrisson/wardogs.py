@@ -1,25 +1,11 @@
 from google.cloud.firestore_v1beta1 import GeoPoint
 import firebasic
 
-<<<<<<< HEAD
 
 class Place(object):
     """
         Images : List of 5 image URLs. 1st = Main
     """
-=======
-class City(object):
-    def __init__(self, name, lat, lng, images, helplines=None, desciption_mp3=None, desc=None):
-        """
-            Images : List of 5 image URLs. 1st = Main
-        """
-        default_helplines = {
-            'police': 100,
-            'fire': 100,
-            'ambulance': 100,
-            'tourism': 100,
-        }
->>>>>>> a272a27040a394936fd4f98f784a1dce1a3e523e
 
     def __init__(self, lat, lng, name, images, desciption_mp3=None, desc=None):
         default_desc = """
