@@ -1,7 +1,7 @@
 import pandas as pd
 
-def normalize():
-    df = pd.read_pickle("place_details.pkl")
+def normalize(place = "Udaipur"):
+    df = pd.read_pickle("../BasicCityData/Udaipur/place_details.pkl")
     df = df.T
     dfextra = pd.read_excel("basicdescs.xlsx")
 
@@ -17,6 +17,4 @@ def normalize():
     del df['Google_name']
     del df['TA_name']
 
-    df.to_pickle("final_udaipur.pkl")
-
-normalize()
+    df.to_pickle("../BasicCityData/" + place + "/final_" + place.lower() + ".pkl")
