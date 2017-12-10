@@ -1,0 +1,82 @@
+Unhandled exception in thread started by <function wrapper at 0x7f33c936bb90>
+Performing system checks...
+
+Traceback (most recent call last):
+  File "/usr/local/lib64/python2.7/site-packages/django/utils/autoreload.py", line 228, in wrapper
+    fn(*args, **kwargs)
+  File "/usr/local/lib64/python2.7/site-packages/django/core/management/commands/runserver.py", line 125, in inner_run
+    self.check(display_num_errors=True)
+  File "/usr/local/lib64/python2.7/site-packages/django/core/management/base.py", line 359, in check
+    include_deployment_checks=include_deployment_checks,
+  File "/usr/local/lib64/python2.7/site-packages/django/core/management/base.py", line 346, in _run_checks
+    return checks.run_checks(**kwargs)
+  File "/usr/local/lib64/python2.7/site-packages/django/core/checks/registry.py", line 81, in run_checks
+    new_errors = check(app_configs=app_configs)
+  File "/usr/local/lib64/python2.7/site-packages/django/core/checks/urls.py", line 16, in check_url_config
+    return check_resolver(resolver)
+  File "/usr/local/lib64/python2.7/site-packages/django/core/checks/urls.py", line 26, in check_resolver
+    return check_method()
+  File "/usr/local/lib64/python2.7/site-packages/django/urls/resolvers.py", line 254, in check
+    for pattern in self.url_patterns:
+  File "/usr/local/lib64/python2.7/site-packages/django/utils/functional.py", line 35, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/usr/local/lib64/python2.7/site-packages/django/urls/resolvers.py", line 405, in url_patterns
+    patterns = getattr(self.urlconf_module, "urlpatterns", self.urlconf_module)
+  File "/usr/local/lib64/python2.7/site-packages/django/utils/functional.py", line 35, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/usr/local/lib64/python2.7/site-packages/django/urls/resolvers.py", line 398, in urlconf_module
+    return import_module(self.urlconf_name)
+  File "/usr/lib64/python2.7/importlib/__init__.py", line 37, in import_module
+    __import__(name)
+  File "/home/ec2-user/Trippy/TrippyMain/TrippyMain/urls.py", line 21, in <module>
+    url(r'^fetchAttractions/', include('CityAttAPI.urls')),
+  File "/usr/local/lib64/python2.7/site-packages/django/conf/urls/__init__.py", line 50, in include
+    urlconf_module = import_module(urlconf_module)
+  File "/usr/lib64/python2.7/importlib/__init__.py", line 37, in import_module
+    __import__(name)
+  File "/home/ec2-user/Trippy/TrippyMain/CityAttAPI/urls.py", line 2, in <module>
+    from . import views
+  File "/home/ec2-user/Trippy/TrippyMain/CityAttAPI/views.py", line 5, in <module>
+    from AI.recommender import get_recommendations
+ImportError: No module named recommender
+Unhandled exception in thread started by <function wrapper at 0x7fa30796cb90>
+Performing system checks...
+
+Traceback (most recent call last):
+  File "/usr/local/lib64/python2.7/site-packages/django/utils/autoreload.py", line 228, in wrapper
+    fn(*args, **kwargs)
+  File "/usr/local/lib64/python2.7/site-packages/django/core/management/commands/runserver.py", line 125, in inner_run
+    self.check(display_num_errors=True)
+  File "/usr/local/lib64/python2.7/site-packages/django/core/management/base.py", line 359, in check
+    include_deployment_checks=include_deployment_checks,
+  File "/usr/local/lib64/python2.7/site-packages/django/core/management/base.py", line 346, in _run_checks
+    return checks.run_checks(**kwargs)
+  File "/usr/local/lib64/python2.7/site-packages/django/core/checks/registry.py", line 81, in run_checks
+    new_errors = check(app_configs=app_configs)
+  File "/usr/local/lib64/python2.7/site-packages/django/core/checks/urls.py", line 16, in check_url_config
+    return check_resolver(resolver)
+  File "/usr/local/lib64/python2.7/site-packages/django/core/checks/urls.py", line 26, in check_resolver
+    return check_method()
+  File "/usr/local/lib64/python2.7/site-packages/django/urls/resolvers.py", line 254, in check
+    for pattern in self.url_patterns:
+  File "/usr/local/lib64/python2.7/site-packages/django/utils/functional.py", line 35, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/usr/local/lib64/python2.7/site-packages/django/urls/resolvers.py", line 405, in url_patterns
+    patterns = getattr(self.urlconf_module, "urlpatterns", self.urlconf_module)
+  File "/usr/local/lib64/python2.7/site-packages/django/utils/functional.py", line 35, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/usr/local/lib64/python2.7/site-packages/django/urls/resolvers.py", line 398, in urlconf_module
+    return import_module(self.urlconf_name)
+  File "/usr/lib64/python2.7/importlib/__init__.py", line 37, in import_module
+    __import__(name)
+  File "/home/ec2-user/Trippy/TrippyMain/TrippyMain/urls.py", line 21, in <module>
+    url(r'^fetchAttractions/', include('CityAttAPI.urls')),
+  File "/usr/local/lib64/python2.7/site-packages/django/conf/urls/__init__.py", line 50, in include
+    urlconf_module = import_module(urlconf_module)
+  File "/usr/lib64/python2.7/importlib/__init__.py", line 37, in import_module
+    __import__(name)
+  File "/home/ec2-user/Trippy/TrippyMain/CityAttAPI/urls.py", line 2, in <module>
+    from . import views
+  File "/home/ec2-user/Trippy/TrippyMain/CityAttAPI/views.py", line 5, in <module>
+    from AI.recommender import get_recommendations
+ImportError: No module named recommender
