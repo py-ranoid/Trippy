@@ -60,3 +60,47 @@ class City(Place):
         pth = [firebasic.CITY_COLLECTION, city_id, firebasic.ATTR_COLLECTION]
         col_path = '/'.join(pth)
         firebasic.add_collection(col_path)
+
+
+class Attraction(Place):
+    def __init__(self, key, name, lat, lng, images, hl, city, desc_mp3=None, desc=None, prices=None):
+        default_prices = {
+            'price1': 10,
+            'price2': 20,
+            'price3': 30,
+            'price4': 40
+        }
+        super(Attraction, self).__init__(
+            lat, lng, name, images, desc_mp3, desc)
+        self.city = city
+        self.attr_id = key
+        self.highlights = hl
+        self.prices = prices if prices is not None else default_prices
+
+    def from_dict(source):
+        pass
+
+    def to_dict(self):
+        basic = super(Attraction, self).to_dict()
+        basic['attr_id'] = self.attr_id
+        basic['highlights'] = self.highlights
+        basic['ticket_price'] = self.prices
+        return basic
+
+    def fire(self, overwrite=False):
+        attr_dict = self.to_dict()
+        attr_key = self.city[:3] + "%.2d" % self.attr_id
+        path = [firebasic.CITY_COLLECTION,
+                self.city[:3], firebasic.ATTR_COLLECTION]
+        col_path = '/'.join(path)
+        attr_col = firebasic.get_col(col_path)
+        firebasic.add_record(attr_col, attr_key, attr_dict, overwrite)
+
+
+"""
+from wardogs import City, Attraction
+c = City(name=u'tr8ial',lat=2,lng=3,images = [u'na']*5)
+c.fire()
+a = Attraction(key = 02,name="meh",lat=2,lng=4,images=['na1']*5,hl="mehmehmeh",city='tr8ial')
+a.fire()
+"""
