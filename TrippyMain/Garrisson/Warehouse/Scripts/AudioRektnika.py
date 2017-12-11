@@ -63,6 +63,11 @@ def truncate_paragraph(text, maxch):
 
 def withText(text, name):
     print text
+
+    audiourleng = STR + name + "eng.mp3"
+    audiourlhin = STR + name + "hin.mp3"
+    audiourlspa = STR + name + "spa.mp3"
+
     engtext = text
     hintext = text
     spatext = transWrapper(text, 'es')
@@ -104,7 +109,42 @@ def withText(text, name):
                 print(error)
                 sys.exit(-1)
 
-    return(engtext, hintext, spatext)
+
+    eaud = AudioSegment.empty()
+    eaud = one_second_pause
+    tsize = 128
+
+    try:
+        while hintext != '':
+            sub = truncate_paragraph(hintext.decode('utf-8'), tsize)
+            print "PART:", sub
+
+            hsub = transWrapper(sub, 'hi')
+            print hsub, len(hsub)
+
+            response3 = text2speech(text = hsub, gender = 'Female', body_lang='hi-IN', voice_lang='hi-IN', destination="")
+            print "HINDI: ", response3
+            hcontent = response3.content
+
+            if response3.status_code == 403:
+                sleep(5)
+                continue
+
+            with open("../HinAudio/" + name + ".wav", "wb") as f:
+                f.write(hcontent)
+                f.close()
+
+            cur = AudioSegment.from_wav("../HinAudio/" + name + ".wav")
+            cur.append(one_second_pause)
+            eaud.append(cur)
+            os.remove("../HinAudio/" + name + ".wav")
+
+            hintext = hintext.split(sub)[1].strip()
+
+        eaud.export("../HinAudio/" + name + ".mp3", format="mp3", bitrate="192k")
+        print s3.meta.client.upload_file(Filename= "../HinAudio/" + name + ".mp3", Bucket='trippystatic', Key= name +"hin.mp3", ExtraArgs={"ACL":'public-read'})
+
+    return(engtext, audiourleng, hintext, audiourlhin, spatext, audiourlspa)
 
 def withPickle(city="Udaipur"):
     # This function will work with the pickles of different cities and auto generate content and audio files.
