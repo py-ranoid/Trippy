@@ -18,9 +18,12 @@ def pusher(data):
     helplines['ambulance'] = data["HelplineAmbulance"]
     helplines['tourism'] = data["HelplineTourism"]
 
-    (en, enurl, hin, hinurl, spa, spaurl) = withText(desc, city + "Desc")
+    if pd.notna(desc):
+        (en, enurl, hin, hinurl, spa, spaurl) = withText(desc, city + "Desc")
+    else:
+        desc = None
 
-    city = City(name = data["CityName"], helplines = helplines, lat = data["Latitude"], lng = data["Longitude"], images = images)
+    city = City(name = data["CityName"], helplines = helplines, lat = data["Latitude"], lng = data["Longitude"], images = images, desc = desc)
     city.fire()
 
 def addCity(city="Chennai"):
@@ -29,7 +32,13 @@ def addCity(city="Chennai"):
     cities = cities[pd.notnull(cities.index)]
     cities = cities.set_index("CityName")
 
-    data = cities.loc[city]
+    try:
+        data = cities.loc[city]
+    except KeyError as e:
+        print "That city is not yet supported"
+        print "Stacktrace: "
+        print e
+        quit()
 
     pusher(data)
 
@@ -50,7 +59,7 @@ def addAllCities():
         data = cities.loc[i]
 
         pusher(data)
-        
+
         '''
         mutualGen(city)
         generate_place_details(city)
