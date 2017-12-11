@@ -1,12 +1,12 @@
 import pandas as pd
 
 def normalize(place = "Udaipur"):
-    df = pd.read_pickle("../BasicCityData/Udaipur/place_details.pkl")
+    df = pd.read_pickle("../BasicCityData/" + place + "/place_details.pkl")
     df = df.T
-    dfextra = pd.read_excel("basicdescs.xlsx")
+    dfextra = pd.read_excel("../BasicCityData/" + place + "/basicdescs.xlsx")
 
     df['imgurls'] = dfextra['imgurls']
-    df['desc'] = dfextra["   Description"]
+    df['desc'] = dfextra["Description"]
 
     newind = range(1000, 1025)
     df['ind'] = newind

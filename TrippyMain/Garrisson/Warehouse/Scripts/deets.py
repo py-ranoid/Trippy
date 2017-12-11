@@ -11,7 +11,7 @@ def generate_place_details(place = "Udaipur", default_descs = True):
     place_list = list(df.index)
     details = {}
     for place in place_list:
-        details[place] = []
+        details[place] = [] 
         query_url = url % '%20'.join(place.split(' '))
         r = requests.get(query_url)
         result = r.json()['results'][0]
